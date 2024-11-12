@@ -64,10 +64,11 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             else
                 EnmyTanks.remove(i--);
 
-            if (hero.shot != null && hero.shot.islive) {
-                System.out.println("子弹被绘制...");
-                g.fillOval(hero.shot.x, hero.shot.y, 10, 10);
-            }
+
+        }
+        if (hero.shot != null && hero.shot.islive) {
+            System.out.println("子弹被绘制...");
+            g.fillOval(hero.shot.x, hero.shot.y, 10, 10);
         }
 
     }
