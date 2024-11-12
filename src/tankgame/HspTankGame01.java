@@ -22,5 +22,4 @@ public class HspTankGame01 extends JFrame  {
 
     }
 
-
 }

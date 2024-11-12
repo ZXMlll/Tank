@@ -23,6 +23,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 0);
             enemyTank.setDirect(2);
             EnmyTanks.add(enemyTank);
+            new Thread(enemyTank).start();
             Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60,
                     enemyTank.getDirect());
             enemyTank.shots.add(shot);
@@ -153,16 +154,25 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W) {
             hero.setDirect(0);
-            hero.moveup();
+            if (hero.getY() > 0) {
+                hero.moveup();
+            }
         } else if (e.getKeyCode() == KeyEvent.VK_D) {
             hero.setDirect(1);
-            hero.moveRight();
+            if (hero.getX() + 60 < 1000) {
+                hero.moveRight();
+            }
         } else if (e.getKeyCode() == KeyEvent.VK_S) {
             hero.setDirect(2);
-            hero.moveDown();
+            if (hero.getY() + 60 < 750) {
+                hero.moveDown();
+            }
         } else if (e.getKeyCode() == KeyEvent.VK_A) {
             hero.setDirect(3);
-            hero.moveLeft();
+            if (hero.getX() > 0)
+             {
+                hero.moveLeft();
+            }
         }
         if (e.getKeyCode() == KeyEvent.VK_J) {
             System.out.println("用户按下了J，开始射击");

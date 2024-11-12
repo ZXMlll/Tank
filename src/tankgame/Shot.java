@@ -3,7 +3,7 @@ package tankgame;
 public class Shot implements Runnable {
     public int x;
     public int y;
-    private int speed = 5;
+    private int speed = 40;
     private int direct = 0;
     public boolean islive = true;
 

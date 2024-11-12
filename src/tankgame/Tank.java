@@ -4,7 +4,7 @@ public class Tank {
     private int x;
     private int y;
     private int direct = 0;
-    private int speed = 1;
+    private int speed = 8;
 
 
     public void moveup() {
