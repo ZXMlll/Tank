@@ -1,11 +1,14 @@
 package tankgame;
 
+import java.util.Vector;
+
 public class Shot implements Runnable {
     public int x;
     public int y;
     private int speed = 40;
     private int direct = 0;
     public boolean islive = true;
+
 
     public Shot(int x, int y, int direct) {
         this.x = x;

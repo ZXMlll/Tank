@@ -41,11 +41,11 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         for (int i = 0; i < bomds.size(); i++) {
             Bomd bomd = bomds.get(i);
             if (bomd.live > 6)
-                g.drawImage(image1,bomd.x,bomd.y,60,60,this);
+                g.drawImage(image1, bomd.x, bomd.y, 60, 60, this);
             else if (bomd.live > 3)
-                g.drawImage(image2,bomd.x,bomd.y,60,60,this);
+                g.drawImage(image2, bomd.x, bomd.y, 60, 60, this);
             else
-                g.drawImage(image3,bomd.x,bomd.y,60,60,this);
+                g.drawImage(image3, bomd.x, bomd.y, 60, 60, this);
             bomd.lifeDown();
             bomds.remove(bomd);
         }
@@ -61,17 +61,20 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                     else
                         enemyTank.shots.remove(j);
                 }
-            }
-            else
+            } else
                 EnmyTanks.remove(i--);
 
 
         }
-        if (hero.shot != null && hero.shot.islive) {
-            System.out.println("子弹被绘制...");
-            g.fillOval(hero.shot.x, hero.shot.y, 10, 10);
+        for (int i = 0; i < hero.shots.size(); i++) {
+            Shot shot = hero.shots.get(i);
+            if (shot != null && shot.islive) {
+                System.out.println("子弹被绘制...");
+                g.fillOval(hero.shot.x, hero.shot.y, 10, 10);
+            }
+            else
+                hero.shots.remove(shot);
         }
-
     }
 
     public void drawTank(int x, int y, Graphics g, int direct, int type) {
@@ -119,7 +122,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         }
     }
 
-    public  void HitEnemyTank(Shot s, EnemyTank enemytank) {
+    public void HitEnemyTank(Shot s, EnemyTank enemytank) {
         switch (enemytank.getDirect()) {
             case 0:
             case 2:
@@ -169,8 +172,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             }
         } else if (e.getKeyCode() == KeyEvent.VK_A) {
             hero.setDirect(3);
-            if (hero.getX() > 0)
-             {
+            if (hero.getX() > 0) {
                 hero.moveLeft();
             }
         }
@@ -202,6 +204,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                     HitEnemyTank(hero.shot, enemyTank);
                 }
             }
+
             this.repaint();
         }
     }
