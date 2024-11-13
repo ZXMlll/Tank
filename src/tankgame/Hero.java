@@ -12,7 +12,6 @@ public class Hero extends Tank{
         switch (getDirect()) {
             case 0:
                 shot = new Shot(getX() + 20,getY(),0);
-
                 break;
             case 1:
                 shot = new Shot(getX() + 110,getY() + 15,1);

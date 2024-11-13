@@ -9,10 +9,32 @@ public class EnemyTank extends Tank implements Runnable {
 
     Vector<Shot> shots = new Vector<>();
     public boolean isLive = true;
+    Shot s = null;
 
     @Override
     public void run() {
         while (true) {
+
+            if (isLive && shots.size() < 5) {
+                switch (getDirect()) {
+                    case 0:
+                        s = new Shot(getX() + 20, getY(), 0);
+                        break;
+                    case 1:
+                        s = new Shot(getX() + 60, getY() + 20, 1);
+                        break;
+                    case 2:
+                        s = new Shot(getX() + 20, getY() + 60, 2);
+                        break;
+                    case 3:
+                        s = new Shot(getX(), getY() + 20, 3);
+                        break;
+                }
+                shots.add(s);
+                new Thread(s).start();
+            }
+
+
             switch (getDirect()) {
                 case 0:
                     for (int i = 0; i < 30; i++) {
@@ -70,7 +92,7 @@ public class EnemyTank extends Tank implements Runnable {
                     break;
             }
             setDirect((int) (Math.random() * 4));
-            if (! isLive)
+            if (!isLive)
                 break;
 
         }

@@ -70,9 +70,8 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             Shot shot = hero.shots.get(i);
             if (shot != null && shot.islive) {
                 System.out.println("子弹被绘制...");
-                g.fillOval(hero.shot.x, hero.shot.y, 10, 10);
-            }
-            else
+                g.fillOval(shot.x, shot.y, 10, 10);
+            } else
                 hero.shots.remove(shot);
         }
     }
@@ -122,14 +121,27 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         }
     }
 
-    public void HitEnemyTank(Shot s, EnemyTank enemytank) {
+
+    public void HitHero() {
+        for (int i = 0; i < EnmyTanks.size(); i++) {
+            EnemyTank enemyTank = EnmyTanks.get(i);
+            for (int j = 0; j < enemyTank.shots.size(); j++) {
+                Shot shot = enemyTank.shots.get(j);
+                if (shot.islive && hero.islive) {
+                    HitEnemyTank(shot, hero);
+                }
+            }
+        }
+    }
+
+    public void HitEnemyTank(Shot s, Tank enemytank) {
         switch (enemytank.getDirect()) {
             case 0:
             case 2:
                 if (s.x > enemytank.getX() && s.x < enemytank.getX() + 40 &&
                         s.y > enemytank.getY() && s.y < enemytank.getY() + 60) {
                     s.islive = false;
-                    enemytank.isLive = false;
+                    enemytank.islive = false;
                     Bomd bomd = new Bomd(enemytank.getX(), enemytank.getY());
                     bomds.add(bomd);
                 }
@@ -139,7 +151,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                 if (s.x > enemytank.getX() && s.x < enemytank.getX() + 60 &&
                         s.y > enemytank.getY() && s.y < enemytank.getY() + 40) {
                     s.islive = false;
-                    enemytank.isLive = false;
+                    enemytank.islive = false;
                     Bomd bomd = new Bomd(enemytank.getX(), enemytank.getY());
                     bomds.add(bomd);
                 }
@@ -198,13 +210,19 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            if (hero.shot != null && hero.shot.islive) {
-                for (int i = 0; i < EnmyTanks.size(); i++) {
-                    EnemyTank enemyTank = EnmyTanks.get(i);
-                    HitEnemyTank(hero.shot, enemyTank);
+
+            for (int i = 0; i < hero.shots.size(); i++) {
+
+                Shot s = hero.shots.get(i);
+                if (s.islive) {
+                    for (int j = 0; j < EnmyTanks.size(); j++) {
+                        EnemyTank enemyTank = EnmyTanks.get(j);
+
+                        HitEnemyTank(s, enemyTank);
+                    }
                 }
             }
-
+            HitHero();
             this.repaint();
         }
     }
