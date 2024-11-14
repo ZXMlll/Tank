@@ -4,8 +4,8 @@ public class Tank {
     private int x;
     private int y;
     private int direct = 0;
-    private int speed = 8;
-    boolean islive = true;
+    private int speed = 2;
+    boolean isLive = true;
 
 
     public void moveup() {

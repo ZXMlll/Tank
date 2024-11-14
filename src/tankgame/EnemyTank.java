@@ -8,7 +8,7 @@ public class EnemyTank extends Tank implements Runnable {
     }
 
     Vector<Shot> shots = new Vector<>();
-    public boolean isLive = true;
+
     Shot s = null;
 
     @Override
