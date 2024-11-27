@@ -226,7 +226,7 @@ public class EnemyTank extends Tank implements Runnable {
                     }
                     break;
             }
-            setDirect((int)(Math.random() * 4));
+            setDirect(1);
             if (!isLive)
                 break;
 

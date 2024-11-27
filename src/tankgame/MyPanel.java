@@ -19,6 +19,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     public MyPanel() {
         hero = new Hero(600, 100);
         hero.setSpeed(8);
+        Recorder.setEnemyTanks(EnmyTanks);
         for (int i = 0; i < enemyTankSize; i++) {
             EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 0);
             enemyTank.setEnemyTanks(EnmyTanks);
@@ -35,11 +36,25 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         image3 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/boom3.png"));
     }
 
+    public void showInfo(Graphics g) {
+        g.setColor(Color.black);
+        Font font = new Font("宋体", Font.BOLD, 25);
+        g.setFont(font);
+        g.drawString("您累计击毁敌方坦克", 1020, 30);
+        drawTank(1020, 60, g, 0, 0);
+        g.setColor(Color.black);
+        g.drawString(Recorder.getAllEnemyTankNum() + "", 1080, 100);
+
+    }
+
+
     public void paint(Graphics g) {
         super.paint(g);
+        showInfo(g);
         g.fillRect(0, 0, 1000, 750);
-        if (hero != null &&hero.isLive) {
-        drawTank(hero.getX(), hero.getY(), g, hero.getDirect(), 1);}
+        if (hero != null && hero.isLive) {
+            drawTank(hero.getX(), hero.getY(), g, hero.getDirect(), 1);
+        }
         for (int i = 0; i < bomds.size(); i++) {
             Bomd bomd = bomds.get(i);
             if (bomd.live > 6)
@@ -144,6 +159,10 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                         s.y > tank.getY() && s.y < tank.getY() + 60) {
                     s.islive = false;
                     tank.isLive = false;
+                    if (tank instanceof EnemyTank) {
+                        Recorder recorder = new Recorder();
+                        recorder.AllEnemyTankNum();
+                    }
                     Bomd bomd = new Bomd(tank.getX(), tank.getY());
                     bomds.add(bomd);
                 }
@@ -153,7 +172,11 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                 if (s.x > tank.getX() && s.x < tank.getX() + 60 &&
                         s.y > tank.getY() && s.y < tank.getY() + 40) {
                     s.islive = false;
-                    tank.isLive = false;;
+                    tank.isLive = false;
+                    if (tank instanceof EnemyTank) {
+                        Recorder recorder = new Recorder();
+                        recorder.AllEnemyTankNum();
+                    }
                     Bomd bomd = new Bomd(tank.getX(), tank.getY());
                     bomds.add(bomd);
                 }
