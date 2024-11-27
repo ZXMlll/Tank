@@ -8,13 +8,149 @@ public class EnemyTank extends Tank implements Runnable {
     }
 
     Vector<Shot> shots = new Vector<>();
-
+    Vector<EnemyTank> enemyTanks = new Vector<>();
     Shot s = null;
 
-    @Override
-    public void run() {
-        while (true) {
+    public void setEnemyTanks(Vector<EnemyTank> enemyTanks) {
+        this.enemyTanks = enemyTanks;
+    }
 
+    public boolean isTouchEnemyTank() {
+        for (int i = 0; i < enemyTanks.size() ; i++) {
+            for (int j = 0; j < enemyTanks.size(); j++) {
+                EnemyTank enemytank1 = enemyTanks.get(i);
+                EnemyTank enemyTank2 = enemyTanks.get(j);
+                switch (enemytank1.getDirect()) {
+                    case 0:
+
+                        if (enemytank1 != enemyTank2) {
+                            if (enemyTank2.getDirect() == 0 || enemyTank2.getDirect() == 2) {
+                                if (enemytank1.getX() >= enemyTank2.getX()
+                                        && enemytank1.getX() <= enemyTank2.getX() + 40
+                                        && enemytank1.getY() >= enemyTank2.getY() &&
+                                        enemytank1.getY() <= enemyTank2.getY() + 60)
+                                    return true;
+                                if (enemytank1.getX() + 40 >= enemyTank2.getX()
+                                        && enemytank1.getX() + 40 <= enemyTank2.getX() + 40
+                                        && enemytank1.getY() >= enemyTank2.getY() &&
+                                        enemytank1.getY() <= enemyTank2.getY() + 60)
+                                    return true;
+                            }
+                            if (enemyTank2.getDirect() == 1 || enemyTank2.getDirect() == 3) {
+                                if (enemytank1.getX() >= enemyTank2.getX()
+                                        && enemytank1.getX() <= enemyTank2.getX() + 60
+                                        && enemytank1.getY() >= enemyTank2.getY() &&
+                                        enemytank1.getY() <= enemyTank2.getY() + 40)
+                                    return true;
+                                if (enemytank1.getX() + 40 >= enemyTank2.getX()
+                                        && enemytank1.getX() + 40 <= enemyTank2.getX() + 60
+                                        && enemytank1.getY() >= enemyTank2.getY() &&
+                                        enemytank1.getY() <= enemyTank2.getY() + 40)
+                                    return true;
+                            }
+                        }
+                        break;
+                    case 1:
+
+                        if (enemytank1 != enemyTank2) {
+                            if (enemyTank2.getDirect() == 0 || enemyTank2.getDirect() == 2) {
+                                if (enemytank1.getX() + 60 >= enemyTank2.getX()
+                                        && enemytank1.getX() + 60 <= enemyTank2.getX() + 40
+                                        && enemytank1.getY() >= enemyTank2.getY() &&
+                                        enemytank1.getY() <= enemyTank2.getY() + 60)
+                                    return true;
+                                if (enemytank1.getX() + 60 >= enemyTank2.getX()
+                                        && enemytank1.getX() + 60 <= enemyTank2.getX() + 40
+                                        && enemytank1.getY() + 40 >= enemyTank2.getY() &&
+                                        enemytank1.getY() + 40 <= enemyTank2.getY() + 60)
+                                    return true;
+                            }
+                            if (enemyTank2.getDirect() == 1 || enemyTank2.getDirect() == 3) {
+                                if (enemytank1.getX() + 60 >= enemyTank2.getX()
+                                        && enemytank1.getX() + 60 <= enemyTank2.getX() + 60
+                                        && enemytank1.getY() >= enemyTank2.getY() &&
+                                        enemytank1.getY() <= enemyTank2.getY() + 40)
+                                    return true;
+                                if (enemytank1.getX() + 60 >= enemyTank2.getX()
+                                        && enemytank1.getX() + 60 <= enemyTank2.getX() + 60
+                                        && enemytank1.getY() + 40 >= enemyTank2.getY() &&
+                                        enemytank1.getY() + 40 <= enemyTank2.getY() + 40)
+                                    return true;
+                            }
+                        }
+                        break;
+
+
+                    case 2:
+
+                        if (enemytank1 != enemyTank2) {
+                            if (enemyTank2.getDirect() == 0 || enemyTank2.getDirect() == 2) {
+                                if (enemytank1.getX() >= enemyTank2.getX()
+                                        && enemytank1.getX() <= enemyTank2.getX() + 40
+                                        && enemytank1.getY() + 60 >= enemyTank2.getY() &&
+                                        enemytank1.getY() + 60 <= enemyTank2.getY() + 60)
+                                    return true;
+                                if (enemytank1.getX() + 40 >= enemyTank2.getX()
+                                        && enemytank1.getX() + 40 <= enemyTank2.getX() + 40
+                                        && enemytank1.getY() + 60 >= enemyTank2.getY() &&
+                                        enemytank1.getY() + 60 <= enemyTank2.getY() + 60)
+                                    return true;
+                            }
+                            if (enemyTank2.getDirect() == 1 || enemyTank2.getDirect() == 3) {
+                                if (enemytank1.getX() >= enemyTank2.getX()
+                                        && enemytank1.getX() <= enemyTank2.getX() + 60
+                                        && enemytank1.getY() + 60 >= enemyTank2.getY() &&
+                                        enemytank1.getY() + 60 <= enemyTank2.getY() + 40)
+                                    return true;
+                                if (enemytank1.getX() + 40 >= enemyTank2.getX()
+                                        && enemytank1.getX() + 40 <= enemyTank2.getX() + 60
+                                        && enemytank1.getY() + 60 >= enemyTank2.getY() &&
+                                        enemytank1.getY() + 60 <= enemyTank2.getY() + 40)
+                                    return true;
+                            }
+                        }
+
+                        break;
+                    case 3:
+
+                        if (enemytank1 != enemyTank2) {
+                            if (enemyTank2.getDirect() == 0 || enemyTank2.getDirect() == 2) {
+                                if (enemytank1.getX() >= enemyTank2.getX()
+                                        && enemytank1.getX() <= enemyTank2.getX() + 40
+                                        && enemytank1.getY() >= enemyTank2.getY() &&
+                                        enemytank1.getY() <= enemyTank2.getY() + 60)
+                                    return true;
+                                if (enemytank1.getX() >= enemyTank2.getX()
+                                        && enemytank1.getX() <= enemyTank2.getX() + 40
+                                        && enemytank1.getY() + 40 >= enemyTank2.getY() &&
+                                        enemytank1.getY() + 40 <= enemyTank2.getY() + 60)
+                                    return true;
+                            }
+                            if (enemyTank2.getDirect() == 1 || enemyTank2.getDirect() == 3) {
+                                if (enemytank1.getX() >= enemyTank2.getX()
+                                        && enemytank1.getX() <= enemyTank2.getX() + 60
+                                        && enemytank1.getY() >= enemyTank2.getY() &&
+                                        enemytank1.getY() <= enemyTank2.getY() + 40)
+                                    return true;
+                                if (enemytank1.getX() >= enemyTank2.getX()
+                                        && enemytank1.getX() <= enemyTank2.getX() + 60
+                                        && enemytank1.getY() + 40 >= enemyTank2.getY() &&
+                                        enemytank1.getY() + 40 <= enemyTank2.getY() + 40)
+                                    return true;
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+        return  false;
+    }
+
+
+
+    @Override
+    public void  run() {
+        while (true) {
             if (isLive && shots.size() < 5) {
                 switch (getDirect()) {
                     case 0:
@@ -38,7 +174,7 @@ public class EnemyTank extends Tank implements Runnable {
             switch (getDirect()) {
                 case 0:
                     for (int i = 0; i < 30; i++) {
-                        if (getY() > 0) {
+                        if (getY() > 0 && !isTouchEnemyTank()) {
                             moveup();
 
                             try {
@@ -52,7 +188,7 @@ public class EnemyTank extends Tank implements Runnable {
                     break;
                 case 1:
                     for (int i = 0; i < 30; i++) {
-                        if (getX() + 60 < 1000) {
+                        if (getX() + 60 < 1000 && !isTouchEnemyTank()) {
 
                             moveRight();
                             try {
@@ -66,7 +202,7 @@ public class EnemyTank extends Tank implements Runnable {
 
                 case 2:
                     for (int i = 0; i < 30; i++) {
-                        if (getY() + 60 < 750) {
+                        if (getY() + 60 < 750 && !isTouchEnemyTank()) {
                             moveDown();
 
                             try {
@@ -79,7 +215,7 @@ public class EnemyTank extends Tank implements Runnable {
                     break;
                 case 3:
                     for (int i = 0; i < 30; i++) {
-                        if (getX() > 0) {
+                        if (getX() > 0 && !isTouchEnemyTank()) {
 
                             moveLeft();
                             try {
@@ -91,7 +227,7 @@ public class EnemyTank extends Tank implements Runnable {
                     }
                     break;
             }
-            setDirect((int) (Math.random() * 4));
+            setDirect(1);
             if (!isLive)
                 break;
 

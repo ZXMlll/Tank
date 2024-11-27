@@ -13,14 +13,15 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     Image image1 = null;
     Image image2 = null;
     Image image3 = null;
-    int enemyTankSize = 3;
+    int enemyTankSize = 5;
 
 
     public MyPanel() {
-        hero = new Hero(100, 100);
+        hero = new Hero(600, 100);
         hero.setSpeed(8);
         for (int i = 0; i < enemyTankSize; i++) {
             EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 0);
+            enemyTank.setEnemyTanks(EnmyTanks);
             enemyTank.setDirect(2);
             EnmyTanks.add(enemyTank);
             new Thread(enemyTank).start();
