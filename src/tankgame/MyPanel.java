@@ -14,22 +14,46 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     Image image2 = null;
     Image image3 = null;
     int enemyTankSize = 5;
+    Vector<Node> n = new Vector();
 
 
-    public MyPanel() {
+    public MyPanel(String key) {
         hero = new Hero(600, 100);
         hero.setSpeed(8);
         Recorder.setEnemyTanks(EnmyTanks);
-        for (int i = 0; i < enemyTankSize; i++) {
-            EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 0);
-            enemyTank.setEnemyTanks(EnmyTanks);
-            enemyTank.setDirect(2);
-            EnmyTanks.add(enemyTank);
-            new Thread(enemyTank).start();
-            Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60,
-                    enemyTank.getDirect());
-            enemyTank.shots.add(shot);
-            new Thread(shot).start();
+        switch (key) {
+            case "1":
+                for (int i = 0; i < enemyTankSize; i++) {
+                    EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 0);
+                    enemyTank.setEnemyTanks(EnmyTanks);
+                    enemyTank.setDirect(2);
+                    EnmyTanks.add(enemyTank);
+                    new Thread(enemyTank).start();
+                    Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60,
+                            enemyTank.getDirect());
+                    enemyTank.shots.add(shot);
+                    new Thread(shot).start();
+                }
+                break;
+            case "2":
+                n = Recorder.getNodes();
+
+                    for (int i = 0; i < n.size(); i++) {
+                        Node node = n.get(i);
+                        EnemyTank enemyTank = new EnemyTank(node.getX(), node.getY());
+                        enemyTank.setEnemyTanks(EnmyTanks);
+                        enemyTank.setDirect(node.getDirect());
+                        EnmyTanks.add(enemyTank);
+                        new Thread(enemyTank).start();
+                        Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60,
+                                enemyTank.getDirect());
+                        enemyTank.shots.add(shot);
+                        new Thread(shot).start();
+                    }
+
+                break;
+            default:
+                System.out.println("输入信息有误");
         }
         image1 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/boom1.png"));
         image2 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/boom2.png"));

@@ -1,13 +1,14 @@
 package tankgame;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Vector;
 
 public class Recorder {
     private static int allEnemyTankNum = 0;
     private static Vector<EnemyTank> enemyTanks = null;
+    static Vector<Node> nodes = new Vector<>();
+    private static BufferedReader reader = null;
+
 
     public static void setEnemyTanks(Vector<EnemyTank> enemyTanks) {
         Recorder.enemyTanks = enemyTanks;
@@ -31,7 +32,7 @@ public class Recorder {
     public static void keepRecord() {
         try {
             bw = new BufferedWriter(new FileWriter(recordFile));
-            bw.write(allEnemyTankNum + "\t\n");
+            bw.write(allEnemyTankNum + "\n");
             for (int i = 0; i < enemyTanks.size(); i++) {
                 EnemyTank enemyTank = enemyTanks.get(i);
                 if (enemyTank.isLive) {
@@ -52,6 +53,33 @@ public class Recorder {
                 }
             }
         }
+    }
+
+    public static Vector<Node> getNodes() {
+        try {
+            reader = new BufferedReader(new FileReader(recordFile));
+            allEnemyTankNum = Integer.parseInt(reader.readLine());
+            String s = "";
+            while ((s = reader.readLine()) != null) {
+                String[] xyz = s.split("\t");
+                Node node = new Node(Integer.parseInt(xyz[0]), Integer.parseInt(xyz[1]),
+                        Integer.parseInt(xyz[2]));
+                nodes.add(node);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+
+        return nodes;
     }
 
 
